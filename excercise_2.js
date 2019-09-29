@@ -144,7 +144,6 @@ class WeatherPrediction extends Basics{
     }
 }
 
-
 class TemperaturePrediction extends  WeatherPrediction {
     constructor(place, time, unit) {
         super(place, time, "Temperature", unit)
@@ -258,7 +257,6 @@ class WeatherForecast{
             i++;
         })
     }
-
 }
 
 class DateInterval {
@@ -274,18 +272,3 @@ class DateInterval {
         return date < this.to && date > this.from
     }
 }
-
-
-
-var data = new Wind("horsens","dneska","mm","500","dozadu");
-var data2 = new Temperature("konov","vcera","C","-57");
-
-var collection = new WeatherHistory([data,data2]);
-console.log(collection.getCurrentPlace());
-collection.convertToUsUnits();
-collection.add(new Temperature("Aarhus","tot kedy","F","11"));
-collection.data();
-
-var pred = new WeatherPrediction("here","minule","dazd",50);
-var pred2 = new WeatherPrediction("there","tot kedy", "sneh",50);
-console.log(pred.matches(pred2));

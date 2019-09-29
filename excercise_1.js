@@ -1,7 +1,7 @@
 function event (time, place) {
     return {
         time: () => {return time},
-        place: () => {return place },
+        place: () => {return place},
     }
 };
 
@@ -16,14 +16,14 @@ function weatherData (value, time, place, type, unit) {
     const dataType1 = dataType(type, unit);
     const event1 = event(time, place);
     return {
-        value: () => { return value },
-        dataType: () => { return dataType1 },
-        event: () => { return event1 },
+        value: () => {return value},
+        dataType: () => {return dataType1},
+        event: () => {return event1},
     }
 };
 
 function temperature(value, time, place, unit) {
-    var weatherData1 =  weatherData(value, time,place,'temperature',unit);
+    let weatherData1 = weatherData(value, time, place, 'temperature', unit);
     return {
         convertToF: () => {
             weatherData1 = weatherData(weatherData1.value(), weatherData1.event().time(), weatherData1.event().place()
@@ -67,7 +67,6 @@ function WeatherHistory(data) {
         add: (addData) => { data.add(addData)},
         data: () => { return data}
     }
-
 }
 
 function WeatherPrediction(time, place, type, unit) {
@@ -76,7 +75,7 @@ function WeatherPrediction(time, place, type, unit) {
     return {
         dataType: () => { return dataType1 },
         event: () => { return event1 },
-        matches: (data) => { return data.event().time() == time },
+        matches: (data) => { return data.event().time() == time }, // Should compare multiple value
         to: () => { return -1 },
         from: () => {return -1 },
     }
@@ -84,7 +83,7 @@ function WeatherPrediction(time, place, type, unit) {
 
 
 function TemperaturePrediction(time, place, type, unit) {
-    const weatherPredition = WeatherPrediction(time, place, type, unit)
+    const weatherPrediction = WeatherPrediction(time, place, type, unit)
 
     return {
         convertToF: () => { console.log("Converting to F") },
@@ -141,7 +140,6 @@ function WeatherForecast(data) {
         add: (addData) => { data.add(addData)},
         data: () => { return data }
     }
-
 }
 
 function DateInterval(from, to) {
@@ -150,26 +148,4 @@ function DateInterval(from, to) {
         to: () => {  return to },
         contains: (data) => { return data < to && data > from }
     }
-
 }
-
-
-
-
-
-
-
-const temp1 = temperature(10, "doobeda", "mesto", "C")
-temp1.convertToC();
-temp1.convertToF();
-const oblacikovost = cloudCoverage(15,"vnoci","konov","nimbostratus");
-const mracikovost = cloudCoverage(15,"cez ded","aarhus","nimbostratus");
-const history = WeatherHistory([oblacikovost,mracikovost]);
-history.getCurrentPlace();
-history.setCurrentPlace("picus");
-history.getCurrentPlace();
-history.clearCurrentPlace();
-history.getCurrentPlace();
-
-const weat = WeatherPrediction("daco", "daco", "daco", "daco")
-const weat2 = WeatherPrediction("daco", "daco", "daco", "kkk")
